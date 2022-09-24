@@ -48,7 +48,7 @@ void grayscale(unsigned char *buf2, unsigned char *buf1, int len){
                 
                 //newval = (int)(0.299 * R + 0.587 * G + 0.114 * B); // From Mathworks example
 
-                newval = (R>>2) + (G>>1) + (B>>2);
+                newval = (R>>2) + (G>>1) + (B>>2); // bitwise division to approximate formula above
                 
                 buf2[i-3] = newval;
                 buf2[i-2] = newval;
