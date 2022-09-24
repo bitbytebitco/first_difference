@@ -1,0 +1,33 @@
+<html>
+<head>
+<META HTTP-EQUIV="Refresh" CONTENT="20;URL=../">
+<link rel=StyleSheet href="../pdbstyle.css" type="text/css" media=all>
+<title>Crawlers/Spiders/Bots error</title>
+</head>
+<body bgcolor="#ffffff">
+<center>
+<table width=600 height=100% valign="center"><tr><td>
+
+<p align="justify">
+Some crawlers/spiders/bots ... have been blocked from the site, if you believe this
+is in error then please contact me by email at the address shown on my
+"<a href="../">front page</a>".
+</p>
+
+<p align="justify">
+The current list includes:
+</p>
+<pre>
+	Wget              BLEXBot
+	MegaIndex         Screaming Frog
+	DotBot            EyeMonIT
+	SemrushBot        AhrefsBot
+	MJ12bot           PetalBot
+	StormCrawler      MauiBot
+</pre>
+
+</td></tr></table></center>
+
+</body>
+</html>
+
