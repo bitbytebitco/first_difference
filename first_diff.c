@@ -26,6 +26,39 @@ void first_diff(unsigned char *buf, int len){
     }
 }
 
+void grayscale(unsigned char *buf2, unsigned char *buf1, int len){
+    int i; 
+    int ind = 0;    
+    int R,G,B;
+    int newval = 0;
+
+    for(i=0;i<len;i++){
+        buf2[i] = buf1[i];
+        if(i<=55){
+            // Header parsing here
+        } else {
+            if(ind == 0){        // red channel
+                ind = ind + 1;
+                R = buf1[i];
+            } else if(ind == 1){ // green channel
+                ind = ind + 1;
+                G = buf1[i];
+            } else if(ind == 2){ // blue channel
+                ind = 0;
+                B = buf1[i];
+                
+                //newval = (int)(0.299 * R + 0.587 * G + 0.114 * B); // From Mathworks example
+
+                newval = (R>>2) + (G>>1) + (B>>2);
+                
+                buf2[i-3] = newval;
+                buf2[i-2] = newval;
+                buf2[i-1] = newval;
+            }   
+        }
+    }
+}
+
 int main(int argc, char* args[])
 {
 
@@ -49,47 +82,9 @@ int main(int argc, char* args[])
 
     fread(buf1, filelen, 1, readptr); // Read in the entire file
 
-    int ind = 0;    
-    int R,G,B;
-    int newval = 0;
-
-    for(i=0;i<filelen;i++){
-        buf2[i] = buf1[i];
-        if(i<=55){
-        } else {
-            if(ind == 0){        // red channel
-                ind = ind + 1;
-                R = buf1[i];
-                //printf("R %d ", R);
-            } else if(ind == 1){ // green channel
-                ind = ind + 1;
-                G = buf1[i];
-                //printf("G %d ", G);
-            } else if(ind == 2){ // blue channel
-                ind = 0;
-                B = buf1[i];
-                //printf("B %d ", B);
-                
-                // newval = (int)(0.25 * R) + (int)(0.5 * G) + (int)(0.25 * B);
-                //newval = (int)(0.299 * R + 0.587 * G + 0.114 * B);
-                newval = (R>>2) + (G>>1) + (B>>2);
-                
-                buf2[i-3] = newval;
-                buf2[i-2] = newval;
-                buf2[i-1] = newval;
-            }   
-            //printf("%02x ",buf1[i]);
-            //newval = 0.25 * R + 0.5 * G + 0.25 * B;
-
-            //newval =  R>>2 + G>>1 + B>>2;
-            //printf("%d \r\n", R>>2 + G>>1 + B>>2);
-
-            //R = 0; G = 0; B = 0;
-
-            //buf2[i] = 0x80;
-        }
-    }
     
+    grayscale(buf2, buf1, filelen);
+
     fwrite(buf2, filelen, 1, greyptr); 
 
     first_diff(buf2, filelen);
