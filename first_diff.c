@@ -12,7 +12,6 @@ void first_diff(unsigned char *buf, int len){
             n_diff = n_1 - n;
             if(abs(n_diff)>THRESHOLD){
 
-                printf("%d \r\n",n_diff);
                 buf[i-2] = 0x00;
                 buf[i-1] = 0x00;
                 buf[i] = 0x00;
@@ -82,21 +81,17 @@ int main(int argc, char* args[])
 
     fread(buf1, filelen, 1, readptr); // Read in the entire file
 
-    
-    grayscale(buf2, buf1, filelen);
+    grayscale(buf2, buf1, filelen); // convert to grayscale 
 
-    fwrite(buf2, filelen, 1, greyptr); 
+    fwrite(buf2, filelen, 1, greyptr);  // write greyscale file
 
-    first_diff(buf2, filelen);
+    first_diff(buf2, filelen); // perform first-diff
 
-    fwrite(buf2, filelen, 1, writeptr); 
+    fwrite(buf2, filelen, 1, writeptr); // output first-diff results to file
 
     fclose(readptr); // Close file being read 
     fclose(writeptr); // Close file being written
     fclose(greyptr); // Close file being written
-
-
-    printf("\r\n");
 
     return 0;
 }
